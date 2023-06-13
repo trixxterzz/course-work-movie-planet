@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Рекомендації
+{% endblock %}
+
+{% block body %}
+    <h2 class="mx-5">Ці фільми можна подивитися: </h2>
+    <div class="container-fluid text-center">
+        <div style="padding-left: 400px;" class="row row-cols-auto py-5 px-5 mx-5 my-auto">
+        {% for i in res %}
+            <div class="search-item col-md-5 col-md-offset-2 card pt-3 bg-dark text-light" style="width: 230px;">
+                <img class="search car-img-top" src="https://image.tmdb.org/t/p/original/{{i['poster_path']}}" width="200" length="300">
+                <div class="card-body">
+                    <a href="/movie?id={{i['id']}}" class="search card-title text-light">{{ i['title']}}<a>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+
+{%endblock%}

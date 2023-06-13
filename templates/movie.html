@@ -1,0 +1,76 @@
+{% extends "layout.html"%}
+
+{% block title%}
+    {{res['title']}}
+{% endblock %}
+{% block body %}
+    {% if error %}
+    <div class="alert alert-danger bg-dark" role="alert">
+        {{ error }}
+    </div>
+    {% endif %}
+    <div>
+        <div class="container-fluid">
+            <div class="d-inline-block">
+                <h1>{{res['title']}}</h1>
+            </div>
+            <div class="float-end d-inline-block">
+                <a style="width: 150px;"class="btn btn-outline-success" href="/add?id={{res['id']}}">Додати до переглянутих</a>
+                <a style="width: 150px;"class="btn btn-outline-success" href="/add_thread?id={{res['id']}}">Додати обговорення</a>
+            </div>
+        </div>
+        <div class="container container-fluid mx-1 my-3">
+            <div class="d-inline-block">
+                <div>
+                    Оригінальна назва: {{res['original_title']}}
+                </div>
+                <div class="d-inline-block">
+                    <ul class="list-inline">
+                        <li class="list-inline-item">{{res['release_date']}}</li>
+                        {% if res['adult'] == false %}
+                            <li class="list-inline-item">Не для дорослих</li>
+                        {% else %}
+                            <li class="list-inline-item">Для дорослих</li>
+                        {% endif %}
+                        <li class="list-inline-item">{{runtime}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="d-inline-block px-5 ">
+                    <div>Рейтинг на TMDb:</div>
+                    <div>
+                        <span>{{res['vote_average']}}/10</span>
+                    </div>
+            </div>
+        </div>
+        <div class="d-inline-block">
+            <div class="leftimg d-inline-block">
+                <img class="leftimg" src="https://image.tmdb.org/t/p/original/{{res['poster_path']}}" width="250" length="375">
+            </div>
+                <p class="pictdescript">
+                    Статус: {{res['status']}}
+                </p>
+                <p class="pictdescript">
+                    Жанри:
+                    {% for i in res['genres']%}
+                        {{i['name']}}  
+                    {% endfor %}
+                </p>
+                <p class="pictdescript">
+                    Студії:
+                    {% for i in res['production_companies']%}
+                        {{i['name']}}
+                    {% endfor %}
+                </p>
+                <p class="pictdescript">
+                    {% if res['revenue'] %}
+                        Касові збори: {{res['revenue']}} $
+                    {% else %}
+                        Касові збори: Невідомо
+                    {% endif %}
+                </p>
+                <p class="pictdescript">
+                    {{res['overview']}}
+                </p>
+    </div>
+{% endblock %}

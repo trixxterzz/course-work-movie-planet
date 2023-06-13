@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Авторизація
+{% endblock %}
+
+{% block body %}
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+    <div class="container-fluid py-5 text-center">
+        <form action="/login" method="POST">
+            <div class="mb-3">
+                <input name="login" type="text" class="form-control mx-auto w-auto bg-dark text-light" placeholder="вашлогін">
+            </div>
+            <div class="mb-3">
+                <input name="passw" type="password" class="form-control mx-auto w-auto bg-dark text-light" placeholder="вашпароль">
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-outline-light mx-auto w-auto">Авторизуватися</button>
+            </div>
+        </form>
+    </div>
+{%endblock%}

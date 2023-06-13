@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Додавання фільму
+{% endblock %}
+
+{% block body %}
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+<div class="container-fluid d-inline-block my-3">
+    <div class="d-inline-block">
+        <img class="leftimg" src="https://image.tmdb.org/t/p/original/{{res['poster_path']}}" width="300" length="450">
+    </div>
+        <form style="top: 100px;" class="d-inline-block" action="/add_thread?id={{res['id']}}" method="POST">
+            <input type="hidden" value="{{res['id']}}" name="id">
+            <div class="container px-3">
+                <input style="width: 350px;" class="form-control bg-dark text-light" type="text" name="theme" placeholder="Тема обговорення (не більше 21 символу)">
+            </div>
+            <div class="container px-3 text-center">
+            <textarea class="filmcomment form-control bg-dark text-light" name="question" cols="5" placeholder="Запитання (не більше 140 символів)"></textarea>
+            </div>
+            <div class="container px-5 pt-3 text-center">
+                <button type="submit" class="btn btn-outline-success">Додати</button>
+            </div>
+        </form>
+</div>
+{% endblock %}

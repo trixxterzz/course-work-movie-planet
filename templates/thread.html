@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ result['theme'] }}
+{% endblock %}
+{% block body %}
+    <div>
+        {% if session["user_id"] == result["author_id"]%}
+            <div class="float-end d-inline-block me-3">
+                <a style="width: 100px;"class="btn btn-outline-danger" href="/thread?id={{result['thread_id']}}&del=del">Видалити</a>
+            </div>
+        {% endif %}
+        <div class="container container-fluid mx-1 my-3">
+            <p>Картина: {{ result['film_title'] }}</p>
+            <p>Автор: {{author["nick"]}}</p>
+        </div>
+
+        <div style="height:400px;">
+            <div class="leftimg d-inline-block">
+                <img class="leftimg" src="https://image.tmdb.org/t/p/original/{{result['poster_path']}}" width="250" length="375">
+            </div>
+            <div class="d-inline-block">
+                <div class="container">
+                    <p style="font-size: 25px;">
+                        {{ result['theme'] }}
+                    </p>
+                    <p class="pictdescript">
+                        {{ result['question']}}                           
+                    </p>
+                </div>
+                <div class="container">
+                    <form action="/thread" method="POST" class="thread form-control text-center bg-dark text-light">
+                        <input name="id" type="hidden" value="{{result['film_id']}}">
+                        <input name="thread_id" type="hidden" value="{{result['thread_id']}}">
+                        <input name="author_id" type="hidden" value="{{session['user_id']}}">
+                        <div class="container">
+                            <textarea class="form-control bg-dark text-light" style="width: 500px; height: 100px;" name="comment" cols="5" placeholder="Коментар"></textarea>
+                        </div>
+                        <div class="container py-3">
+                            <button type="submit" class="btn btn-outline-success">Відправити</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container fluid">
+        {% if not comments %}
+        <h2 class="text-center">Доки що тут нема коментарів. Будьте першим!</h2>
+        {% else %}
+        <div class="container-fluid text-start my-3 py-3">
+            {% for i in comments %}
+                    <div class="container-fluid my-2" style="height: max-content;">
+                        <span style="font-size: 10px;" class="px-4">{{ i['nick']}}</span>
+                        <span style="font-size: 10px;" class="ps-1">{{i['datetime']}}</span>
+                        <div class="container-fluid">
+                            <div class="d-inline-block leftimg"><img src="\static\av_placeh.png" width="50" height="50"></div>
+                            <div class="d-inline-block"><p>{{i['comment_text']}}</p></div>
+                        </div>
+                    </div>
+            {% endfor%}
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

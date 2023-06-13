@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Реєстрація
+{% endblock %}
+
+{% block body %}
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+    <div class="container-fluid py-5 text-center">
+        <form action="/register" method="POST">
+            <div>
+            <div class="mb-3">
+                <input name="login" type="text" class="register form-control mx-auto bg-dark text-light" placeholder="вашлогін (не більше 21 символу)">
+            </div>
+            <div class="mb-3">
+                <input name="passw1" type="password" class="register form-control mx-auto bg-dark text-light" placeholder="вашпароль (від 8 до 21 симв.)">
+            </div>
+            <div class="mb-3">
+                <input name="passw2" type="password" class="register form-control mx-auto bg-dark text-light" placeholder="вашепідтвердження">
+            </div>
+            <div class="mb-3">
+                <input name="name" type="text" class="register form-control mx-auto bg-dark text-light" placeholder="вашеім'я (опціонально)">
+            </div>
+            <div class="mb-3">
+                <input name="surname" type="text" class="register form-control mx-auto bg-dark text-light" placeholder="вашепрізвище (опціонально)">
+            </div>
+            <div class="mb-3">
+                <input name="nick" type="text" class="register form-control mx-auto bg-dark text-light" placeholder="вашнікнейм (за замовчуванням буде вашим логіном)">
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-outline-light btn-sx">Зареєструватися</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

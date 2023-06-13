@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Профіль
+{% endblock %}
+
+{% block body %}
+    {% if success %}
+    <div class="alert alert-success" role="alert">
+        {{success}}
+    </div>
+    {% endif %}
+    <div class="d-inline-block" style="height: 250px;">
+        <div class="leftimg d-inline-block">
+            <img class="leftimg" src="\static\av_placeh.png" width="225" length="225">
+        </div>
+        <div class="profile d-inline-block">
+            <p>
+                <span style="font-size:25px;">{{user['nick']}}  </span>
+                <span class="profdescript">{{user['name']}} {{user['surname']}}</span>
+            </p>
+            <p>Країна:
+                {% if user['origin_country'] %}
+                    {{user['origin_country']}}
+                {% else %}
+                    Не вказано
+                {% endif %}
+            </p>
+            <p>Зареєстрований {{user['reg_date']}}</p>
+            <p>Гендер:
+                {% if user['gender'] %}
+                    {{user['gender']}}
+                {% else %}
+                    Не вказано
+                {% endif %}
+            </p>
+            <p>Народився: 
+                {% if user['birth_day'] %}
+                    {{user['birth_day']}}
+                {% endif %}
+                {% if user['birth_month'] %}
+                    {{user['birth_month']}}
+                {% endif %}
+                {% if user['birth_year'] %}
+                    {{user['birth_year']}}р.
+                {% endif %}
+                {% if not user['birth_day'] and user['birth_month'] and user['birth_year'] %}
+                    Не вказано
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    <div class="mx-3 float-end d-inline-block">
+        {% if session['user_id'] == user['user_id']%}
+            <form method="GET" action="/edit_profile">
+                <button type="submit" class="btn btn-outline-success">Редагувати профіль</button>
+            </form>
+        {% endif %}
+    </div>
+    <div class="container ms-0">
+        <h2 class="ms-0">Список переглянутих фільмів: </h2>
+        {% if not response %}
+        {% elif not edit %}
+            <form action="/" method="POST">
+                <button class="btn btn-outline-light px-auto py-auto">Редагувати</button>
+                <input type="hidden" value="2" name="code">
+            </form>
+        {% else %}
+            <a class="btn btn-outline-light px-auto py-auto" href="/">Зберегти</a>
+        {% endif %}
+        {% if response %}
+            <div style="padding-left: 400px;" class="row row-cols-auto py-5 px-5 mx-5 my-auto">
+                {% for i in response %}
+                    <div class="text-center search-item col-md-5 col-md-offset-2 card pt-3 bg-dark text-light" style="width: 230px;">
+                        <img class="search car-img-top" src="https://image.tmdb.org/t/p/original/{{i['poster_path']}}" width="200" length="300">
+                        <div class="card-body">
+                            <span class="card-title">{{ i['film_title']}}<span>
+                            {% if edit %}
+                                <form action="/" method="POST">
+                                    <input type="hidden" value="{{i['film_id']}}" name="id">
+                                    <button type="submit" class="search-item btn btn-outline-danger py-2">Видалити</button>
+                                </form>
+                            {% else %}
+                                <div class="dropdown bg-dark text-light">
+                                    <button class="dropdown-toggle btn btn-outline-success" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Додатково</button>
+                                    <ul class="dropdown-menu bg-dark text-light">
+                                        <li><span class="dropdown-item bg-dark text-light"> Оцінка: {{i['rating']}}</span></li>
+                                        <li><pre style="width: 300px;" class="dropdown-item bg-dark text-light">Відгук: {{i['film_comment']}}</pre></li>
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+    </div>
+            {% else %}
+                <div class="container-fluid text-center">
+                    <h2 class="text-center"> Доки що тут нема фільмів</h2>
+                </div>
+            {% endif %}
+    
+
+{%endblock%}

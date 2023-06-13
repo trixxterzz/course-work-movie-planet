@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Додавання фільму
+{% endblock %}
+
+{% block body %}
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+    <div class="container-fluid d-inline-block my-3">
+        <div class="d-inline-block">
+            <img class="leftimg" src="https://image.tmdb.org/t/p/original/{{res['poster_path']}}" width="300" length="450">
+        </div>
+            <form style="top: 100px;" class="d-inline-block" action="/add" method="POST">
+                <input type="hidden" value="{{res['id']}}" name="id">
+                <div class="d-inline-block px-3 d-inline-block text-center">
+                    <textarea class="filmcomment form-control bg-dark text-light" name="comment" cols="5" placeholder="Відгук до фільму (не більше 21 символу)"></textarea>
+                </div>
+                <div class="container px-5 pt-3 text-center">
+                    <div class="my-auto w-auto px-3 d-inline-block">
+                        <select name="rate" class="form-select bg-dark text-light">
+                            <option selected value="">Оцінка</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                    <div class="d-inline-block">
+                        <button type="submit" class="btn btn-outline-success">Додати</button>
+                    </div>
+                </div>
+            </form>
+    </div>
+{% endblock %}

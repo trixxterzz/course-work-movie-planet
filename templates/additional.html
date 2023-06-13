@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Додатково
+{% endblock %}
+
+{% block head %}
+    <script src="/static/js/script2.js"></script>
+{% endblock %}
+
+{% block body %}
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+    <div class="container-fluid py-5 text-center">
+        <form action="/additional" method="POST">
+            <div class="form-check mb-3 my-3 py-1">
+                <p>Вашгендер (опціонально): </p>
+                <div style="width:100px;" class="d-inline-block">
+                    <input class="btn-check" type="radio" name="gender" value="Чоловік" id="choice1">
+                    <label class="base btn btn-outline-success" for="choice1">Чоловік</label>
+                </div>
+                <div style="width:100px;" class="d-inline-block">
+                    <input class="btn-check" type="radio" name="gender" value="Жінка" id="choice2">
+                    <label class="base btn btn-outline-success" for="choice2">Жінка</label>
+                </div>
+                <div style="width:100px;" class="d-inline-block">
+                    <input class="btn-check" type="radio" name="gender" value="Інше" id="choice3">
+                    <label class="another btn btn-outline-success" for="choice3">Інше</label>
+                </div>
+                <div class="container my-1 py-1">
+                    <input class="gender register form-control mx-auto bg-dark text-light" style="visibility:hidden;" type="text" name="gender_another" placeholder="вашгендер">
+                </div>
+            </div>
+            <p>Датанародження: </p>
+            <div class="mb-3 d-inline-block">
+                <select name="year" class="form-select bg-dark text-light">
+                    <option value="" checked>Рік</option>
+                    {% for i in year %}
+                        <option value="{{i}}">{{i}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3 d-inline-block">
+                <select name="month" class="form-select bg-dark text-light">
+                    <option value="" checked>Місяць</option>
+                    {% for i in month %}
+                        <option value="{{i}}">{{i}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3 d-inline-block">
+                <select name="day" class="form-select bg-dark text-light">
+                    <option value="" checked>День</option>
+                    {% for i in day %}
+                        <option value="{{i}}">{{i}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="country container mb-3">
+                <select name="origin_country" class="form-select bg-dark text-light">
+                    <option value="" checked>Країна</option>
+                    {% for country in countries %}
+                        <option value="{{country}}">{{country}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="text-center my-3 py-1">
+            <button type="submit" class="btn btn-outline-secondary btn-sx">Додати</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ Рекомендації }}
+{% endblock %}
+{% block body %}
+    <h2 class="quest text-center">Який у вас настрій?</h2>
+    <div class="container-fluid text-center px-3">
+        <button class="px-3 emoji angry">😡</button>
+        <button class="px-3 emoji funny">😄</button>
+        <button class="px-3 emoji coquettish">🥰</button>
+        <button class="px-3 emoji sad">😢</button>
+        <button class="px-3 emoji neutral">😐</button> 
+    </div>
+    <div class="container-fluid text-center">
+        <div style="visibility:hidden;" class="choice_block1 d-inline-block">
+            <form action="/discover" method="POST"> 
+                <button class="choice1 btn btn-outline-light" type="submit" value="" name="choice"></button>
+            </form>
+        </div>
+        <div style="visibility:hidden;" class="choice_block2 d-inline-block">
+            <form action="/discover" method="POST">
+                 <button class="choice2 btn btn-outline-light" type="submit" value="" name="choice"></button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

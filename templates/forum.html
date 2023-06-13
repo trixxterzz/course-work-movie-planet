@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Форум
+{% endblock %}
+{% block body %}
+    {% if success %}
+        <div class="alert alert-success" role="alert">
+            {{success}}
+        </div>
+    {% endif %}
+    <div class="container-fluid text-center">
+        {% if res %}
+            <div style="padding-left: 400px;" class="row row-cols-auto py-5 px-5 mx-5 my-auto">
+            {% for i in res %}
+                <div class="search-item col-md-5 col-md-offset-2 card pt-3 bg-dark text-light" style="width: 230px;">
+                    <img class="search car-img-top" src="https://image.tmdb.org/t/p/original/{{i['poster_path']}}" width="200" length="300">
+                    <div class="card-body">
+                        <a href="/thread?id={{i['thread_id']}}" class="search card-title text-light">{{ i['theme']}}<a>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        {% else %}
+            <h2 class="text-center">Доки що нема обговорень</h2>
+        {% endif %}
+    </div>
+{% endblock %}
